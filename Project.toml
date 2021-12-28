@@ -1,0 +1,13 @@
+name = "TableLogger"
+uuid = "72b659bb-f61b-4d0d-9dbb-0f81f57d8545"
+authors = ["Ole Kröger <o.kroeger@opensourc.es> and contributors"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.6"
+
+[targets]
+test = ["Test"]
