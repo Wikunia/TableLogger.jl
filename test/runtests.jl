@@ -2,5 +2,5 @@ using TableLogger
 using Test
 
 @testset "TableLogger.jl" begin
-    # Write your tests here.
+    include("unit/main.jl")
 end
