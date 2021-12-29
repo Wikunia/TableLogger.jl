@@ -1,3 +1,9 @@
+"""
+    get_line(table::Table)
+
+Get the next line of the table by using `table.current_values`.
+Call [`format_table_value`](@ref) to format each value and use the alignments to create the line such that it fits to [`get_header`](@ref).
+"""
 function get_line(table::Table)
     setup = table.setup
     ln = ""
@@ -31,6 +37,12 @@ function get_line(table::Table)
     return ln
 end
 
+"""
+    fill_from_prev!(table::Table)
+
+If a value isn't given by a new called [`set_value!`](@ref) since the last call to [`print_line`](@ref) the previous value will be used.
+This function overwrites `table.current_values` to set unassigned values to `table.prev_values`.
+"""
 function fill_from_prev!(table::Table)
     for i in 1:length(table.current_values) 
         if !isassigned(table.current_values, i) || isnothing(table.current_values[i])
@@ -39,6 +51,12 @@ function fill_from_prev!(table::Table)
     end
 end
 
+"""
+    shall_print_line(table::Table; force=false)
+
+Return whether the new line shall be printed. If `force = true` return true immediately.
+Otherwise check if at least one value differs enough from the previous value by calling [`differs_enough`](@ref).
+"""
 function shall_print_line(table::Table; force=false)
     force && return true
 
@@ -55,6 +73,12 @@ function shall_print_line(table::Table; force=false)
     return shall_update
 end
 
+"""
+    print_line(table::Table; force=false)
+
+Print the new line of the table if it differs enough from the previous line or if `force = true`.
+If the new line gets printed set the `prev_values` to `current_values` and the `current_values` to an `nothing`.
+"""
 function print_line(table::Table; force=false)
     fill_from_prev!(table)
     
