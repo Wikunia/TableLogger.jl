@@ -24,3 +24,12 @@ end
 function differs_enough(value::T, prev_value::T) where T
     return value != prev_value
 end
+
+function differs_enough(value::DiffX, prev_value::DiffX)
+    diff = abs(value.value - prev_value.value)
+    return diff >= value.by    
+end
+
+function Base.string(d::DiffX)
+    return d.value
+end

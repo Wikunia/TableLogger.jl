@@ -7,6 +7,18 @@ struct TableSetup
     alignments::Vector{Symbol}
 end
 
+struct DiffX{V,B}
+    by::B
+    value::V
+end
+
+function DiffX(by)
+    return (val)->DiffX(by, val)
+end
+
+const Diff5 = DiffX(5)
+const Diff10 = DiffX(10)
+
 mutable struct Table
     setup::TableSetup
     current_values::Vector
@@ -50,4 +62,5 @@ function init_log_table(columns::NamedTuple...; width=20, alignment=:center)
 end
 
 export init_log_table, print_header, print_line, set_value!
+export DiffX, Diff5, Diff10
 end
