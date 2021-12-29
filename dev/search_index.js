@@ -1,0 +1,3 @@
+var documenterSearchIndex = {"docs":
+[{"location":"","page":"Home","title":"Home","text":"CurrentModule = TableLogger","category":"page"},{"location":"#TableLogger","page":"Home","title":"TableLogger","text":"","category":"section"},{"location":"","page":"Home","title":"Home","text":"Documentation for TableLogger.","category":"page"},{"location":"","page":"Home","title":"Home","text":"","category":"page"},{"location":"","page":"Home","title":"Home","text":"Modules = [TableLogger]","category":"page"},{"location":"#TableLogger.get_header-Tuple{TableLogger.Table}","page":"Home","title":"TableLogger.get_header","text":"get_header(table::Table)\n\nReturn the header string of the Table including ====== as the second line\n\n\n\n\n\n","category":"method"}]
+}
