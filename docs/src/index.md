@@ -4,7 +4,7 @@ CurrentModule = TableLogger
 
 # TableLogger
 
-Documentation for [TableLogger](https://github.com/Ole Kröger/TableLogger.jl).
+Documentation for [TableLogger](https://github.com/Wikunia/TableLogger.jl).
 
 ```@index
 ```

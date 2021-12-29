@@ -6,11 +6,11 @@ DocMeta.setdocmeta!(TableLogger, :DocTestSetup, :(using TableLogger); recursive=
 makedocs(;
     modules=[TableLogger],
     authors="Ole Kröger <o.kroeger@opensourc.es> and contributors",
-    repo="https://github.com/Ole Kröger/TableLogger.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/Wikunia/TableLogger.jl/blob/{commit}{path}#{line}",
     sitename="TableLogger.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://Ole Kröger.github.io/TableLogger.jl",
+        canonical="https://Wikunia.github.io/TableLogger.jl",
         assets=String[],
     ),
     pages=[
@@ -19,6 +19,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/Ole Kröger/TableLogger.jl",
+    repo="github.com/Wikunia/TableLogger.jl",
     devbranch="main",
 )
