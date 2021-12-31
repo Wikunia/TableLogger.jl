@@ -81,7 +81,7 @@ If the new line gets printed set the `prev_values` to `current_values` and the `
 """
 function print_line(table::Table; force=false)
     fill_from_prev!(table)
-    
+
     shall_print_line(table; force) || return
     println(get_line(table))
     update_for_new_row(table)

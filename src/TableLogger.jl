@@ -14,6 +14,32 @@ struct TableSetup
 end
 
 """
+    DiffX{V,B}
+
+Can be used to specify the absolute difference which makes the given value different enough 
+from the previous value to print a new line.
+As an example if the last value is `DiffX(5, 10)` and the new value is `DiffX(5, 12)` the change is not significant enough.
+If the next value however is `DiffX(5, 15)` then the value is different enough from the last printed value `10`.
+Therefore a new line is printed.
+"""
+struct DiffX{V,B}
+    by::B
+    value::V
+end
+
+"""
+    DiffX(by)
+
+Create an anonymous function with something like `Diffd1 = DiffX(0.1)` to be able to use `Diffd1(10.0)` instead of `DiffX(0.1, 10.0)`.
+"""
+function DiffX(by)
+    return (val)->DiffX(by, val)
+end
+
+const Diff5 = DiffX(5)
+const Diff10 = DiffX(10)
+
+"""
     mutable struct Table
 
 Stores the [`TableSetup`](@ref) as well as the current and previous values
@@ -93,4 +119,5 @@ function init_log_table(columns::NamedTuple...; width=20, alignment=:center)
 end
 
 export init_log_table, print_header, print_line, set_value!
+export DiffX, Diff5, Diff10
 end
