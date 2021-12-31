@@ -59,10 +59,9 @@ function differs_enough(value::DiffX, prev_value::DiffX)
 end
 
 """
-    Base.string(d::DiffX)
+    get_value(d::DiffX)
 
 Taking the value of [`DiffX`](@ref) to represent it in the table.
 """
-function Base.string(d::DiffX)
-    return d.value
-end
+get_value(d::DiffX) = d.value
+get_value(val) = val

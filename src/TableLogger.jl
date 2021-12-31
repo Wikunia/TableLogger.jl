@@ -1,5 +1,7 @@
 module TableLogger
 
+using Formatting
+
 """
     struct TableSetup
 
