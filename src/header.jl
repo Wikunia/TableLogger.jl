@@ -1,6 +1,6 @@
 
 """
-get_header(table::Table)
+    get_header(table::Table)
 
 Return the header string of the `Table` including `======` as the second line
 """
@@ -23,4 +23,9 @@ function get_header(table::Table)
     return header
 end
 
+"""
+    print_header(table::Table)
+
+Print the header of the given `table`. Calls [`get_header`](@ref).
+"""
 print_header(table::Table) = println(get_header(table))
