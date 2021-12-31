@@ -10,8 +10,8 @@ function get_header(table::Table)
     sum_width = 0
     for (name, width) in zip(setup.names, setup.widths)
         sum_width += width
-        padding = width - length(name)
-        if padding < 2
+        padding = width - 2 - length(name)
+        if padding < 0
             error("The width must be at least 2+length(name) for each column")
         end
         ln *= repeat(" ", fld(padding, 2) + 1)
