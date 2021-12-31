@@ -38,13 +38,13 @@ function update_for_new_row(table)
 end
 
 """
-    differs_enough(value::T, prev_value::T) where T
+    differs_enough(value, prev_value)
 
 Return true if the `value` is significantly different from `prev_value`.
 In this default case simply return `true` if they are different. 
 Provide your own `differs_enough` function by dispatching on both values.
 """
-function differs_enough(value::T, prev_value::T) where T
+function differs_enough(value, prev_value)
     return value != prev_value
 end
 
