@@ -48,11 +48,21 @@ function differs_enough(value::T, prev_value::T) where T
     return value != prev_value
 end
 
+"""
+    differs_enough(value::DiffX, prev_value::DiffX)
+
+Check whether two [`DiffX`](@ref) values differ enough from each other.
+"""
 function differs_enough(value::DiffX, prev_value::DiffX)
     diff = abs(value.value - prev_value.value)
     return diff >= value.by    
 end
 
+"""
+    Base.string(d::DiffX)
+
+Taking the value of [`DiffX`](@ref) to represent it in the table.
+"""
 function Base.string(d::DiffX)
     return d.value
 end
