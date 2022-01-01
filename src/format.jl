@@ -1,14 +1,55 @@
 """
-    format_table_value(width::Int, value)
+    format_table_value(width::Int, value; default_precision=2)
 
 Format the table value using the given `width` and value. 
-The string representation of `value` is returned if there can be at least 1 space on either side of it.
-Otherwise `"t.l."` is returned. You can dispatch on `value` to change this behavior. 
-In that case you should check yourself that the length of the returned string is smaller or equal to `width-2`.
+
+For `val::Real`
+- return a string representation that fits in the width and return "<<" if val is smaller than 0 but can't be represented or ">>" when it's bigger than 0.
+
+For `val::Integer`
+- return simply the string representation and `t.l.` if it doesn't fit
+
+For all others:
+- return simply the string representation and `t.l.` if it doesn't fit
 """
-function format_table_value(width::Int, value)
+function format_table_value(width::Int, val::Real; default_precision=2)
+    s_val = fmt("<.10f", val)
+    precision = default_precision
+    s_val_split = split(s_val, ".")
+    if length(s_val_split[1]) == 1 && s_val_split[1] == "0" && length(s_val_split) == 2
+        while precision < 10
+            if s_val_split[2][precision - 1] != '0'
+                precision -= precision > 2 ? 1 : 0
+                break
+            end
+            precision += 1
+        end
+    end
+
+    prec_fmt = FormatSpec("<.$(precision)f")
+    s_val = fmt(prec_fmt, val)
+    while length(s_val) > width && precision > 0
+        precision -= 1
+        prec_fmt = FormatSpec("<.$(precision)f")
+        s_val = fmt(prec_fmt, val)
+    end
+    if length(s_val) > width
+        s_val = val > 0 ? ">>" : "<<"
+    end
+    return s_val
+end
+
+function format_table_value(width::Int, value::Integer; default_precision=2)
     s_val = string(value)
-    if length(s_val) > width+2
+    if length(s_val) > width
+        s_val = "t.l."
+    end
+    return s_val
+end
+
+function format_table_value(width::Int, value; default_precision=2)
+    s_val = string(value)
+    if length(s_val) > width
         s_val = "t.l."
     end
     return s_val

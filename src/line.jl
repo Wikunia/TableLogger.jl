@@ -10,26 +10,25 @@ function get_line(table::Table)
     for c in 1:length(setup.ids)
         width = setup.widths[c]
         values = table.current_values
+        default_precision = setup.precisions[c]
         if isassigned(values, c)
             val = values[c]
-            s_val = format_table_value(width, val)
+            s_val = format_table_value(width-2, get_value(val); default_precision)
         else
             s_val = "-"
         end
         padding = width - 2 - length(s_val)
         alignment = setup.alignments[c]    
         if alignment == :center
-            ln *= repeat(" ", fld(padding, 2) + 1)
-            ln *= s_val
-            ln *= repeat(" ", cld(padding, 2) + 1)
+            left_padding = repeat(" ", fld(padding, 2) + 1)
+            right_padding = repeat(" ", cld(padding, 2) + 1)
+            ln = "$(ln)$(left_padding)$(s_val)$(right_padding)"
         elseif alignment == :left
-            ln *= " "
-            ln *= s_val
-            ln *= repeat(" ", padding + 1)
+            right_padding = repeat(" ", padding + 1)
+            ln = "$(ln) $(s_val)$(right_padding)"
         elseif alignment == :right
-            ln *= repeat(" ", padding + 1)
-            ln *= s_val
-            ln *= " "
+            left_padding = repeat(" ", padding + 1)
+            ln = "$(ln)$(left_padding)$(s_val) "
         else
             @error "Only the alignments :left, :right and :center are defined. $alignment isn't defined."
         end

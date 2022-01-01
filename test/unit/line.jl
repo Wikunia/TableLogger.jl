@@ -1,15 +1,18 @@
 @testset "Get line" begin 
     table = init_log_table(
         (id=:open_nodes, name="#Open"),
-        (id=:closed_nodes, name="#Closed"),
+        (id=:closed_nodes, name="#Closed", alignment=:right),
+        (id=:time, name="#Time", alignment=:left),
     )
     set_value!(table, :open_nodes, 10)
     set_value!(table, :closed_nodes, 20)
+    set_value!(table, :time, 1.1)
     line = TableLogger.get_line(table)
     @test occursin("10", line)
     @test occursin("20", line)
+    @test occursin("1.1", line)
+    @test occursin("20  1.1", line)
     @test length(line) == sum(table.setup.widths)
-    @test line == "         10                  20         "
 end
 
 @testset "Shall print line" begin 

@@ -3,4 +3,5 @@
     include("utils.jl")
     include("header.jl")
     include("line.jl")
+    include("format.jl")
 end
