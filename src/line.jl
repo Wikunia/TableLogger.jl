@@ -10,9 +10,10 @@ function get_line(table::Table)
     for c in 1:length(setup.ids)
         width = setup.widths[c]
         values = table.current_values
+        default_precision = setup.precisions[c]
         if isassigned(values, c)
             val = values[c]
-            s_val = format_table_value(width-2, get_value(val))
+            s_val = format_table_value(width-2, get_value(val); default_precision)
         else
             s_val = "-"
         end

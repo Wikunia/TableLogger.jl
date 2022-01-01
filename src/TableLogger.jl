@@ -6,13 +6,14 @@ using Formatting
     struct TableSetup
 
 Stores information about the columns of the table by storing:
-ids, names, widths and alignments
+ids, names, widths, alignments and precision
 """
 struct TableSetup
     ids::Vector{Symbol}
     names::Vector{String}
     widths::Vector{Int}
     alignments::Vector{Symbol}
+    precisions::Vector{Int}
 end
 
 """
@@ -58,22 +59,23 @@ include("header.jl")
 include("line.jl")
 
 """
-    init_log_table(ids::Vector{Symbol}, names::Vector{String}, widths::Vector{Int}, alignments::Vector{Symbol})
+    init_log_table(ids::Vector{Symbol}, names::Vector{String}, widths::Vector{Int}, alignments::Vector{Symbol}, precisions::Vector{Int})
 
-Initialize the table structure with a vector of ids, names, widths and alignments.
+Initialize the table structure with a vector of ids, names, widths, alignments and precisions.
 """
-function init_log_table(ids::Vector{Symbol}, names::Vector{String}, widths::Vector{Int}, alignments::Vector{Symbol})
+function init_log_table(ids::Vector{Symbol}, names::Vector{String}, widths::Vector{Int}, alignments::Vector{Symbol}, precisions::Vector{Int})
     @assert length(ids) == length(names)
     @assert length(ids) == length(widths)
     @assert length(ids) == length(alignments)
+    @assert length(ids) == length(precisions)
     current_values = Vector{Any}(undef, length(ids))
     prev_values = Vector{Any}(undef, length(ids))
-    return Table(TableSetup(ids, names, widths, alignments), current_values, prev_values)
+    return Table(TableSetup(ids, names, widths, alignments, precisions), current_values, prev_values)
 end
 
 
 """
-    init_log_table(columns::NamedTuple...; width=20, alignment=:center)
+    init_log_table(columns::NamedTuple...; width=20, alignment=:center, precision=2)
 
 Initialize the table structure by a list of information for each column.
 
@@ -98,11 +100,12 @@ table = init_log_table(
 
 In this case the default alignment is changed to `:left`.
 """
-function init_log_table(columns::NamedTuple...; width=20, alignment=:center)
+function init_log_table(columns::NamedTuple...; width=20, alignment=:center, precision=2)
     ids = Vector{Symbol}()
     names = Vector{String}()
     widths = Vector{Int}()
     alignments = Vector{Symbol}() 
+    precisions = Vector{Int}() 
     for column in columns 
         push!(ids, column.id)
         push!(names, column.name)
@@ -116,8 +119,13 @@ function init_log_table(columns::NamedTuple...; width=20, alignment=:center)
         else
             push!(alignments, alignment)
         end
+        if haskey(column, :precision)
+            push!(precisions, column.precision)
+        else
+            push!(precisions, precision)
+        end
     end
-    return init_log_table(ids, names, widths, alignments)
+    return init_log_table(ids, names, widths, alignments, precisions)
 end
 
 export init_log_table, print_header, print_line, set_value!

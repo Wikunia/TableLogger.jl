@@ -1,5 +1,5 @@
 """
-    format_table_value(width::Int, value)
+    format_table_value(width::Int, value; default_precision=2)
 
 Format the table value using the given `width` and value. 
 
@@ -12,9 +12,9 @@ For `val::Integer`
 For all others:
 - return simply the string representation and `t.l.` if it doesn't fit
 """
-function format_table_value(width::Int, val::Real)
+function format_table_value(width::Int, val::Real; default_precision=2)
     s_val = fmt("<.10f", val)
-    precision = 2
+    precision = default_precision
     s_val_split = split(s_val, ".")
     if length(s_val_split[1]) == 1 && s_val_split[1] == "0" && length(s_val_split) == 2
         while precision < 10
@@ -39,7 +39,7 @@ function format_table_value(width::Int, val::Real)
     return s_val
 end
 
-function format_table_value(width::Int, value::Integer)
+function format_table_value(width::Int, value::Integer; default_precision=2)
     s_val = string(value)
     if length(s_val) > width
         s_val = "t.l."
@@ -47,7 +47,7 @@ function format_table_value(width::Int, value::Integer)
     return s_val
 end
 
-function format_table_value(width::Int, value)
+function format_table_value(width::Int, value; default_precision=2)
     s_val = string(value)
     if length(s_val) > width
         s_val = "t.l."
