@@ -10,10 +10,10 @@ This can be used for your machine learning, optimization or any other project in
 
 ## Installation
 
-Currently the package isn't registered yet so it needs to be installed via url i.e. with:
+You can install the package via the Julia package manager.
 
 ```julia
-] add https://github.com/Wikunia/TableLogger.jl
+] add TableLogger
 ```
 
 ## Usage
